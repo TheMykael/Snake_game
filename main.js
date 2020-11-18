@@ -11,14 +11,14 @@ let direction = "right";
 
 // Estilo do background
 function criarBG(){
-	context.fillStyle = "lightgreen";
+	context.fillStyle = "#d9d9d9";
 	context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
 // Estilo da cobrinha
 function criarCobrinha(){
 	for(i=0; i < snake.length; i++){
-		context.fillStyle = "purple";
+		context.fillStyle = "#590059";
 		context.fillRect(snake[i].x, snake[i].y, box, box);
 	}
 }
