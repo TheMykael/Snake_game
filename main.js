@@ -7,7 +7,14 @@ snake[0] = {
 	x: 8 * box,
 	y: 8 * box
 }
+
+// Setar os movimentos da cobrinha. Pode ser left, right, etc.
 let direction = "right";
+// Fazer a comida aparecer em lugares randômicos
+let food = {
+	x: Math.floor(Math.random() * 15 + 1) * box,
+	y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 // Estilo do background
 function criarBG(){
@@ -21,6 +28,12 @@ function criarCobrinha(){
 		context.fillStyle = "#590059";
 		context.fillRect(snake[i].x, snake[i].y, box, box);
 	}
+}
+
+// Função para criar a comida
+function drawFood(){
+	context.fillStyle = "#0D0D0D";
+	context.fillRect(food.x, food.y, box, box);
 }
 
 // Função para a cobrinha andar de acordo com as teclas que pressionarmos
@@ -39,9 +52,10 @@ function iniciarJogo(){
 	if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
 	if(snake[0].y > 15 * box && direction == "up") snake[0].y = 0;
 	if(snake[0].y < 0 && direction == "down") snake[0].y = 16 * box;
-	// Declaração para criar de fato o background e a cobrinha
+	// Declaração para criar de fato o background, a cobrinha e a comida
 	criarBG();
 	criarCobrinha();
+	drawFood();
 	// Posição x e y da cobrinha, para ela ter um ponto de partida
 	let snakeX = snake[0].x;
 	let snakeY = snake[0].y;
@@ -60,5 +74,5 @@ function iniciarJogo(){
 	snake.unshift(newHead);
 }
 
-// Isso serve para atualizar o jogo. O padrão sugerido foi de 100ms
+// Isso serve para atualizar o jogo, irá definir a velocidade. O padrão sugerido foi de 100ms
 let jogo = setInterval(iniciarJogo, 120);
