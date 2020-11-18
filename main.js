@@ -1,3 +1,4 @@
+// Variáveis
 let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let box = 32;
@@ -8,11 +9,13 @@ snake[0] = {
 }
 let direction = "right";
 
+// Estilo do background
 function criarBG(){
 	context.fillStyle = "lightgreen";
 	context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
+// Estilo da cobrinha
 function criarCobrinha(){
 	for(i=0; i < snake.length; i++){
 		context.fillStyle = "purple";
@@ -20,7 +23,23 @@ function criarCobrinha(){
 	}
 }
 
+// Função para a cobrinha andar de acordo com as teclas que pressionarmos
+document.addEventListener('keydown', update);
+function update(event){
+	// A direção que ela irá se movimentar NÃO poderá ser a oposta, senão a cobrinha teria 2 cabeças
+	if(event.keyCode == 37 && direction != "right") direction = "left";
+	if(event.keyCode == 38 && direction != "up") direction = "down";
+	if(event.keyCode == 39 && direction != "left") direction = "right";
+	if(event.keyCode == 40 && direction != "down") direction = "up";
+}
+
 function iniciarJogo(){
+	// Permitir que a cobrinha ao chegar nos limites do canvas, saia do lado oposto
+	if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+	if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
+	if(snake[0].y > 15 * box && direction == "up") snake[0].y = 0;
+	if(snake[0].y < 0 && direction == "down") snake[0].y = 16 * box;
+	// Declaração para criar de fato o background e a cobrinha
 	criarBG();
 	criarCobrinha();
 	// Posição x e y da cobrinha, para ela ter um ponto de partida
@@ -42,4 +61,4 @@ function iniciarJogo(){
 }
 
 // Isso serve para atualizar o jogo. O padrão sugerido foi de 100ms
-let jogo = setInterval(iniciarJogo, 100);
+let jogo = setInterval(iniciarJogo, 120);
