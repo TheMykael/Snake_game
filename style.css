@@ -1,0 +1,20 @@
+body{
+	height: 95vh;
+	width: 95;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.titulo_jogo{
+	color: #0D0D0D;
+	text-shadow: 2px 4px 0 #D9D9D9;
+	font-weight: bold;
+}
+
+.titulo_autor{
+	font-size: 22px;
+	font-style: italic;
+	color: #262626;
+}
