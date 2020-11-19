@@ -22,7 +22,7 @@ function criarBG(){
 	context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
-// Estilo da cobrinha
+// Estilo da cobrinha. A variável "i" é o corpo dela
 function criarCobrinha(){
 	for(i=0; i < snake.length; i++){
 		context.fillStyle = "#590059";
@@ -52,6 +52,13 @@ function iniciarJogo(){
 	if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
 	if(snake[0].y > 15 * box && direction == "up") snake[0].y = 0;
 	if(snake[0].y < 0 && direction == "down") snake[0].y = 16 * box;
+	//Indicar o fim de jogo caso o corpo da cobrinha colida entre si
+	for(i=1; i < snake.length; i++){
+		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
+			clearInterval(jogo);
+			alert('Game Over :( clique em OK para continuar');
+		}
+	}
 	// Declaração para criar de fato o background, a cobrinha e a comida
 	criarBG();
 	criarCobrinha();
@@ -64,8 +71,15 @@ function iniciarJogo(){
 	if(direction == "left") snakeX -= box;
 	if(direction == "up") snakeY += box;
 	if(direction == "down") snakeY -= box;
+	// Condição caso a cobrinha coma a comida
+	if(snakeX != food.x || snakeY != food.y){
 	// Função "pop" para retirar o último elemento do nosso array
 	snake.pop();
+	}
+	else{
+	food.x = Math.floor(Math.random() * 15 + 1) * box;
+	food.y = Math.floor(Math.random() * 15 + 1) * box;
+	}
 	// É necessário criar a cabeça da cobrinha com o "unshift" que irá acrescentar à frente do elemento
 	let newHead = {
 		x: snakeX,
